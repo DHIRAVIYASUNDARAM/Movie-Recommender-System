@@ -19,8 +19,8 @@ def load_and_process_data(data_path):
     """
     try:
         # !!! CRUCIAL CHANGE HERE: Using pd.read_csv for .csv files !!!
-        ratings = pd.read_csv(os.path.join(data_path, 'ratings.csv'))
-        movies = pd.read_csv(os.path.join(data_path, 'movies.csv'))
+        ratings = pd.read_excel(os.path.join(data_path, 'ratings.xlsx'))
+        movies = pd.read_excel(os.path.join(data_path, 'movies.xlsx'))
 
         # Create the user-item matrix:
         user_movie_matrix = ratings.pivot_table(index='userId', columns='movieId', values='rating').fillna(0)
