@@ -1,0 +1,19 @@
+# Virtual environment
+venv/
+*.env
+.env
+
+# Jupyter Notebook specific files
+.ipynb_checkpoints/
+
+# Python compiled files
+__pycache__/
+*.pyc
+
+# Streamlit specific
+.streamlit/
+
+# Optionally ignore large datasets if you don't want to upload them
+# For MovieLens, it's small, so you might want to include it.
+# If you want to exclude it, uncomment the line below.
+# ml-latest-small/
