@@ -5,16 +5,23 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
 # --- Configuration ---
+# This path is confirmed to be correct based on your previous checks.
 DATA_FOLDER_PATH = "C:/Users/admin/OneDrive/Desktop/ALL/Folders/internship/RISE/movie_recommender/ml-latest-small/ml-latest-small/"
 
+
+# --- Data Loading and Preprocessing (Cached for Streamlit Performance) ---
 @st.cache_data
 def load_and_process_data(data_path):
+    """
+    Loads movie ratings and metadata, then processes them to create
+    a user-movie matrix and an item-item similarity matrix.
+    """
     try:
-        # THIS IS THE CRUCIAL PART: Use pd.read_excel for .xlsx files
-        ratings = pd.read_excel(os.path.join(data_path, 'ratings.xlsx'))
-        movies = pd.read_excel(os.path.join(data_path, 'movies.xlsx'))
+        # !!! CRUCIAL CHANGE HERE: Using pd.read_csv for .csv files as per your latest feedback !!!
+        ratings = pd.read_csv(os.path.join(data_path, 'ratings.csv'))
+        movies = pd.read_csv(os.path.join(data_path, 'movies.csv'))
 
-        # ... (rest of your data processing code) ...
+        # Create the user-item matrix:
         user_movie_matrix = ratings.pivot_table(index='userId', columns='movieId', values='rating').fillna(0)
         movie_user_matrix = user_movie_matrix.T
         item_similarity_matrix = cosine_similarity(movie_user_matrix)
@@ -25,14 +32,14 @@ def load_and_process_data(data_path):
         return ratings, movies, user_movie_matrix, item_similarity_df
 
     except FileNotFoundError as e:
-        st.error(f"Error: Data files (ratings.xlsx or movies.xlsx) not found at {data_path}. Details: {e}")
-        st.error("Please ensure the 'ml-latest-small' folder is correctly placed and the DATA_FOLDER_PATH is accurate, AND that you have .xlsx files.")
-        st.stop()
+        # Error message now correctly states .csv files are expected
+        st.error(f"Error: Data files (ratings.csv or movies.csv) not found at {data_path}. Details: {e}")
+        st.error("Please ensure the 'ml-latest-small' folder is correctly placed and the DATA_FOLDER_PATH is accurate, AND that you have .csv files.")
+        st.stop() # Halts the execution of the Streamlit app
     except Exception as e:
         st.error(f"An unexpected error occurred during data loading or processing: {e}")
         st.stop()
 
-# ... (rest of your app.py code) ...
 # Load and process data when the Streamlit app starts.
 ratings_df, movies_df, user_movie_matrix_filled, item_similarity_df = load_and_process_data(DATA_FOLDER_PATH)
 
