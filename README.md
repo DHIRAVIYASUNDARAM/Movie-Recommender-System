@@ -48,3 +48,11 @@ pip install streamlit pandas scikit-learn requests
 
 streamlit run app.py
 ```
+
+## 🎥 Demo Video
+
+▶️ **Watch the Screen Recording Demo of the College Club Website**
+
+[![Watch Video](https://img.shields.io/badge/Click%20to%20Watch-Demo%20Video-blue?style=for-the-badge&logo=google-drive)](https://drive.google.com/file/d/13bG7GW0w_Al1Ia2LRbJIJgJaCrRuVj3C/view?usp=sharing)
+
+---
